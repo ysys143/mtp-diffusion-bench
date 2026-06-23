@@ -95,8 +95,6 @@ ax.axhline(11.5, color="#444", lw=2)
 # 그룹 헤더 (수평 열 라벨 바로 위)
 ax.text(1.5, -1.55, "Speed  (log, shared scale)", ha="center", fontsize=9.5, weight="bold")
 ax.text(6.5, -1.55, "Accuracy  (per-column scale)", ha="center", fontsize=9.5, weight="bold")
-ax.text(-4.6, 5.5, "Gemma 4", rotation=90, va="center", fontsize=9.5, weight="bold")
-ax.text(-4.6, 13.5, "Qwen 3.6", rotation=90, va="center", fontsize=9.5, weight="bold")
 
 ax.set_xticks(np.arange(-0.5, ncol, 1), minor=True)
 ax.set_yticks(np.arange(-0.5, nrow, 1), minor=True)
