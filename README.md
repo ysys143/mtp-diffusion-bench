@@ -6,7 +6,7 @@
 
 대상 모델은 Gemma 4(12B·26B-A4B·31B·diffusiongemma)와 Qwen 3.6(27B·35B-A3B)이다. 정밀도·추론기법·컨텍스트를 바꿔 가며 측정했고, 정확도는 thinking을 켠 동일 조건에서 lm-eval·inspect_ai·HRET 세 프레임워크로 교차 확인했다.
 
-**결론.** 양자화(fp8·int8-MoE·qat)는 정확도를 떨어뜨리지 않고 속도와 메모리만 줄였다. MTP도 정확도를 그대로 둔 채 속도를 끌어올렸다. GPQA 198문항에서 평균 Δ≈0이었고, dense는 2.6배, MoE는 1.4~1.8배 빨라졌다. 가장 앞선 쪽은 활성 파라미터가 적은 MoE로, dense와 같은 정확도를 3~5배 속도로 냈다. diffusion은 4배로 가장 빠르지만, 어려운 추론과 긴 문맥의 끝부분에서는 정확도가 떨어졌다.
+**결론.** 양자화(fp8·int8-MoE·qat)는 정확도를 떨어뜨리지 않고 속도와 메모리만 줄였다. MTP도 정확도를 그대로 둔 채 속도를 끌어올렸다. GPQA 198문항에서 평균 Δ≈0이었고, dense는 2.6배, MoE는 1.4–1.8배 빨라졌다. 가장 앞선 쪽은 활성 파라미터가 적은 MoE로, dense와 같은 정확도를 3–5배 속도로 냈다. diffusion은 4배로 가장 빠르지만, 어려운 추론과 긴 문맥의 끝부분에서는 정확도가 떨어졌다.
 
 ## 1부 — 통합 결과표 (Gemma 4 / Qwen 3.6)
 
@@ -37,19 +37,19 @@
 |  | fp8 | AR | 79/74 | 0.828 | 0.854 | 0.846 | 0.925 | 0.850 | 0.634 | 3/3 @241K |
 |  |  | MTP | 147/142 (1.86×) | 0.818 | 0.854 | — | — | — | — | — |
 |  | int8 | AR | 48/45 | 0.818 | 0.874 | 0.868 | 0.932 | 0.854 | 0.658 | — |
-| **diffusion 26B-A4B** | fp8 | diff | 864/578 | 0.571 | 0.606 | 0.706 | 0.890 | 0.85 | 0.576 | 2/3 @32~48K² |
+| **diffusion 26B-A4B** | fp8 | diff | 864/578 | 0.571 | 0.606 | 0.706 | 0.890 | 0.85 | 0.576 | 2/3 @32–48K² |
 |  | bf16 | diff | 616/372 | 0.596 | 0.631 | 0.738 | 0.893 | 0.848 | 0.576 | — |
 |  | int8 | diff | 759/510 | 0.576 | 0.672 | 0.744 | 0.897 | 0.85 | 0.544 | — |
 
 **표 보는 법**
 - **속도 short/8K**: throughput(tok/s)을 두 조건으로 적었다. 앞 숫자는 짧은 프롬프트, 뒤 숫자는 8K 컨텍스트 입력 기준이다. 예를 들어 `82/78`은 각각 82·78 tok/s.
 - **MTP 행의 괄호**: AR 대비 속도 배수(speedup). 예: `184/148 (2.24×)`.
-- **정확도 6지표**(lm-GPQA·insp-GPQA·MMLU-Pro·IFEval·haerae·KMMLU): 0~1.0 정답률.
+- **정확도 6지표**(lm-GPQA·insp-GPQA·MMLU-Pro·IFEval·haerae·KMMLU): 0–1.0 정답률.
 - **MTP 행**은 속도와 GPQA(lm/insp)만 쟀다. 나머지 네 지표(`—`)는 AR과 같다고 보고 생략했다.
 - **†**: eager로 폴백돼 공정한 속도가 아니다(가중치 70GB가 단일 H100 80GB에서 CUDA graph를 못 올림). 정확도만 유효하다.
 - **¹** 31B-bf16+MTP는 드래프터와 KV가 H100 80GB에 안 들어가 측정하지 못했다. **²** diffusion의 NIAH는 depth 90%에서 실패해 2/3이다. NIAH의 `—` 행은 같은 아키텍처의 대표 셀로 갈음했다.
 
-**한 눈 요약:** 정밀도를 바꿔도 6지표 거의 불변(양자화 무손실) · MTP 행은 AR 대비 1.4~2.6×(dense>MoE)인데 GPQA는 ±0.05 노이즈 · NIAH AR 3/3 vs diffusion 2/3.
+**한 눈 요약:** 정밀도를 바꿔도 6지표 거의 불변(양자화 무손실) · MTP 행은 AR 대비 1.4–2.6×(dense>MoE)인데 GPQA는 ±0.05 노이즈 · NIAH AR 3/3 vs diffusion 2/3.
 
 ## 2부 — 신규 6모델 경량 평가
 
@@ -67,7 +67,7 @@
 
 > EXAONE만 MMLU-Pro/KMMLU N=200(과대생성으로 N=500 비현실적), 나머지 N=500 / GPQA full 198 · ✱VibeThinker MMLU-Pro/KMMLU는 off-domain(수학/코드 특화) · gemma-4-12B-coder는 vLLM GGUF 미지원(gemma4_unified)으로 제외.
 
-**해석:** **EXAONE-4.5·Nex-N2가 지식(MMLU-Pro 0.84~0.86)·한국어(KMMLU 0.63~0.68)는 1부급**이나 GPQA(하드추론)는 중간. **VibeThinker-3B는 GPQA 0.535로 30B급**(STEM 추론 특화)이지만 지식·한국어는 바닥(off-domain). **Claude-distill은 base(qwen35 0.80/0.86)보다 하락** — 화제성 distill ≠ 개선. 서빙 안정화 R&D(모델별 런타임/파서/mm비활성/native·online fp8)는 [report/05 §C](report/05-2부리그.md).
+**해석:** **EXAONE-4.5·Nex-N2가 지식(MMLU-Pro 0.84–0.86)·한국어(KMMLU 0.63–0.68)는 1부급**이나 GPQA(하드추론)는 중간. **VibeThinker-3B는 GPQA 0.535로 30B급**(STEM 추론 특화)이지만 지식·한국어는 바닥(off-domain). **Claude-distill은 base(qwen35 0.80/0.86)보다 하락** — 화제성 distill ≠ 개선. 서빙 안정화 R&D(모델별 런타임/파서/mm비활성/native·online fp8)는 [report/05 §C](report/05-2부리그.md).
 
 </details>
 
