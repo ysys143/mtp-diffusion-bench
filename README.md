@@ -50,7 +50,7 @@ Gemma 4(12B·26B-A4B·31B·diffusiongemma)·Qwen 3.6(27B·35B-A3B)을 단일 H10
 ## 2부 — 신규 6모델 경량 평가
 
 <details>
-<summary><b>▶ 펼치기 — 2026 신규 서드파티·distill·finetune 6종 (GPQA + MMLU-Pro + KMMLU, thinking-on·fp8). 상세: <a href="report/05-2부리그.md">report/05</a></b></summary>
+<summary><b>2026 신규 6종 결과 펼치기</b> — 서드파티·distill·finetune (GPQA + MMLU-Pro + KMMLU, thinking-on·fp8). 상세: <a href="report/05-2부리그.md">report/05</a></summary>
 
 | 모델 | 종류 | 속도 s/8K | GPQA | MMLU-Pro | KMMLU |
 |---|---|---:|---:|---:|---:|
