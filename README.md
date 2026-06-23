@@ -1,14 +1,12 @@
 # mtp-diffusion-bench
 
-Gemma 4와 Qwen 3.6을 H100에서 돌려, 추론 가속 기법(MTP·diffusion)이 속도와 정확도를 어떻게 바꾸는지 따져본 벤치마크.
+이 문서는 Gemma 4와 Qwen 3.6을 단일 H100 80GB에서 동일한 조건으로 측정해, 추론 가속 기법인 MTP(speculative decoding)와 diffusion이 속도와 정확도를 얼마나 바꾸는지 정리한 벤치마크다. 가속이 속도를 얼마나 올리고, 그 대가로 정확도가 얼마나 깎이는지를 본다. 변인을 줄이려고 양자화·컨텍스트·thinking은 같은 조건으로 고정했고, 결과는 속도·정확도·메모리를 함께 놓고 비교한다.
 
-> 묻고 싶은 건 하나다. MTP(speculative decoding)와 diffusion 같은 가속 기법을 켜면 속도는 얼마나 빨라지고 정확도는 얼마나 달라지는가. 양자화·컨텍스트·thinking은 같은 조건으로 고정해 두고, 속도와 정확도와 메모리를 한자리에 놓고 따졌다.
+측정은 끝났으며 자세한 내용은 [report/](report/README.md)(프로토콜·시행착오·결과·재현·2부리그)에 정리돼 있다. 이 README는 그 요약이다. 초기 Phase 문서는 [legacy/phase-docs/](legacy/phase-docs/)에 보관했다.
 
-측정은 끝났다. 이 README가 결과 요약이자 진입점이고, 자세한 내용은 [report/](report/README.md)(프로토콜·시행착오·결과·재현·2부리그)에 있다. 초기 Phase 문서는 [legacy/phase-docs/](legacy/phase-docs/)에 보관했다.
+대상 모델은 Gemma 4(12B·26B-A4B·31B·diffusiongemma)와 Qwen 3.6(27B·35B-A3B)이다. 정밀도·추론기법·컨텍스트를 바꿔 가며 측정했고, 정확도는 thinking을 켠 동일 조건에서 lm-eval·inspect_ai·HRET 세 프레임워크로 교차 확인했다.
 
-대상은 Gemma 4(12B·26B-A4B·31B·diffusiongemma)와 Qwen 3.6(27B·35B-A3B)이다. 단일 H100 80GB에서 정밀도·추론기법·컨텍스트를 바꿔 가며 쟀고, 정확도는 thinking을 켠 같은 조건에서 lm-eval·inspect_ai·HRET 세 프레임워크로 교차 확인했다.
-
-**결론.** 양자화(fp8·int8-MoE·qat)는 정확도를 떨어뜨리지 않고 속도와 메모리만 줄였다. MTP도 마찬가지로 정확도를 거의 그대로 둔 채 속도를 끌어올렸는데(GPQA 198문항에서 평균 Δ≈0, dense는 2.6배·MoE는 1.4~1.8배), 이건 n=198로 확인한 값이다. 가장 앞선 건 활성 파라미터가 적은 MoE로, 같은 정확도를 dense의 3~5배 속도로 냈다. diffusion은 4배로 제일 빠르지만 어려운 추론과 긴 문맥의 끝부분에서 흔들렸다.
+**결론.** 양자화(fp8·int8-MoE·qat)는 정확도를 떨어뜨리지 않고 속도와 메모리만 줄였다. MTP도 정확도를 그대로 둔 채 속도를 끌어올렸다. GPQA 198문항에서 평균 Δ≈0이었고, dense는 2.6배, MoE는 1.4~1.8배 빨라졌다. 가장 앞선 쪽은 활성 파라미터가 적은 MoE로, dense와 같은 정확도를 3~5배 속도로 냈다. diffusion은 4배로 가장 빠르지만, 어려운 추론과 긴 문맥의 끝부분에서는 정확도가 떨어졌다.
 
 ## 1부 — 통합 결과표 (Gemma 4 / Qwen 3.6)
 
