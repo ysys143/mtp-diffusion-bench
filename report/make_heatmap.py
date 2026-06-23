@@ -28,9 +28,9 @@ rows = [
     ("Gemma 31B bf16",    [40, 35, N, N],       [0.828, 0.788, 0.840, 0.941, 0.904, 0.692]),
     ("Gemma 31B fp8",     [68, 62, 178, 150],   [0.849, 0.763, 0.862, 0.944, 0.898, 0.708]),
     ("Gemma 31B qat",     [90, 71, 214, 143],   [0.833, 0.773, 0.850, 0.943, 0.904, 0.688]),
-    ("Gemma4 diff fp8",   [864, 578, N, N],     [0.571, 0.606, 0.706, 0.890, 0.850, 0.576]),
-    ("Gemma4 diff bf16",  [616, 372, N, N],     [0.596, 0.631, 0.738, 0.893, 0.848, 0.576]),
-    ("Gemma4 diff int8",  [759, 510, N, N],     [0.576, 0.672, 0.744, 0.897, 0.850, 0.544]),
+    ("Gemma4 diff 26B-A4B fp8",  [864, 578, N, N], [0.571, 0.606, 0.706, 0.890, 0.850, 0.576]),
+    ("Gemma4 diff 26B-A4B bf16", [616, 372, N, N], [0.596, 0.631, 0.738, 0.893, 0.848, 0.576]),
+    ("Gemma4 diff 26B-A4B int8", [759, 510, N, N], [0.576, 0.672, 0.744, 0.897, 0.850, 0.544]),
     ("Qwen3.6 35B-A3B fp8", [217, 205, 311, 318], [0.803, 0.838, 0.862, 0.904, 0.834, 0.586]),
     ("Qwen3.6 27B bf16",  [48, 45, N, N],       [0.798, 0.848, 0.856, 0.939, 0.846, 0.628]),
     ("Qwen3.6 27B fp8",   [79, 74, 147, 142],   [0.828, 0.854, 0.846, 0.925, 0.850, 0.634]),
@@ -95,8 +95,8 @@ ax.axhline(11.5, color="#444", lw=2)
 # 그룹 헤더 (수평 열 라벨 위로 충분히 띄움)
 ax.text(1.5, -1.7, "Speed  (log, shared scale)", ha="center", fontsize=9.5, weight="bold")
 ax.text(6.5, -1.7, "Accuracy  (per-column scale)", ha="center", fontsize=9.5, weight="bold")
-ax.text(-3.6, 5.5, "Gemma 4", rotation=90, va="center", fontsize=9.5, weight="bold")
-ax.text(-3.6, 13.5, "Qwen 3.6", rotation=90, va="center", fontsize=9.5, weight="bold")
+ax.text(-4.6, 5.5, "Gemma 4", rotation=90, va="center", fontsize=9.5, weight="bold")
+ax.text(-4.6, 13.5, "Qwen 3.6", rotation=90, va="center", fontsize=9.5, weight="bold")
 
 ax.set_xticks(np.arange(-0.5, ncol, 1), minor=True)
 ax.set_yticks(np.arange(-0.5, nrow, 1), minor=True)
