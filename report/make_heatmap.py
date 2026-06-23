@@ -108,7 +108,7 @@ for s in ax.spines.values():
 ax.set_title("MTP / diffusion bench  —  speed + accuracy heatmap   (single H100 80GB)\n"
              "darker = higher  ·  speed: shared log scale (compare across)  ·  "
              "accuracy: per-column scale (compare down only)",
-             fontsize=10.5, pad=66)
+             fontsize=10.5, pad=92)
 fig.tight_layout()
 out = "report/heatmap.png"
 fig.savefig(out, dpi=160, bbox_inches="tight", facecolor="white")
