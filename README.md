@@ -70,7 +70,7 @@ Gemma 4(12B·26B-A4B·31B·diffusiongemma)·Qwen 3.6(27B·35B-A3B)을 단일 H10
 ## 구조
 | 경로 | 내용 |
 |---|---|
-| **[report/](report/README.md)** | **★ 상세 정본** — 01프로토콜·02시행착오·03결과·04재현·05-2부리그 |
+| **[report/](report/README.md)** | **★ 상세 정본** — 01프로토콜·02시행착오·03결과·04재현·05-2부리그·06-MTP/diffusion세팅 |
 | [results_consolidated.csv](results_consolidated.csv) | 마스터 데이터 224행 (전 표의 근거) |
 | `context/` | Phase 2 — (모델×정밀도)별 최대 안정 컨텍스트([FINDINGS](context/FINDINGS.md)) |
 | `evals/` | 평가 배터리 러너 (lm-eval / inspect_ai / HRET) |

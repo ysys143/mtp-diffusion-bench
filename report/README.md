@@ -20,6 +20,7 @@
 | [03-결과와해석.md](03-결과와해석.md) | 정밀도 sweep · diffusion · MTP(무손실 정식검증) · 컨텍스트 · 4대 발견 · 워크로드 가이드 |
 | [04-재현과데이터.md](04-재현과데이터.md) | 환경 · 스크립트 인벤토리 · 재개 패턴 · CSV 스키마/요약 |
 | [05-2부리그.md](05-2부리그.md) | **2부 리그** — 신규 6모델(EXAONE/Nex-N2/GLM-Flash/Nemotron/distill/VibeThinker) 경량 평가 + 서빙 안정화 R&D |
+| [06-MTP-diffusion-세팅.md](06-MTP-diffusion-세팅.md) | **MTP/diffusion 세팅 가이드** — 복붙 serve 명령(셀별 speculative-config) + 난점·해결 트러블슈팅 |
 
 ## 커버리지 매트릭스 (무엇을·왜 측정/미측정)
 
