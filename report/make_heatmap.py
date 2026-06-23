@@ -93,8 +93,8 @@ plt.setp(ax.get_xticklabels(), rotation=0, ha="center")
 ax.axvline(3.5, color="#444", lw=2)
 ax.axhline(11.5, color="#444", lw=2)
 # 그룹 헤더 (수평 열 라벨 위로 충분히 띄움)
-ax.text(1.5, -1.7, "Speed  (log, shared scale)", ha="center", fontsize=9.5, weight="bold")
-ax.text(6.5, -1.7, "Accuracy  (per-column scale)", ha="center", fontsize=9.5, weight="bold")
+ax.text(1.5, -2.4, "Speed  (log, shared scale)", ha="center", fontsize=9.5, weight="bold")
+ax.text(6.5, -2.4, "Accuracy  (per-column scale)", ha="center", fontsize=9.5, weight="bold")
 ax.text(-4.6, 5.5, "Gemma 4", rotation=90, va="center", fontsize=9.5, weight="bold")
 ax.text(-4.6, 13.5, "Qwen 3.6", rotation=90, va="center", fontsize=9.5, weight="bold")
 
@@ -108,7 +108,7 @@ for s in ax.spines.values():
 ax.set_title("MTP / diffusion bench  —  speed + accuracy heatmap   (single H100 80GB)\n"
              "darker = higher  ·  speed: shared log scale (compare across)  ·  "
              "accuracy: per-column scale (compare down only)",
-             fontsize=10.5, pad=52)
+             fontsize=10.5, pad=66)
 fig.tight_layout()
 out = "report/heatmap.png"
 fig.savefig(out, dpi=160, bbox_inches="tight", facecolor="white")
