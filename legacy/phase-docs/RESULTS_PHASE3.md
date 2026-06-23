@@ -1,6 +1,6 @@
 # Phase 3 결과 — 3프레임워크 다면 평가 + 기법 트레이드오프
 
-> **[통합] 본 문서는 전체 여정 종합본 `report/`로 대체됨 → [report/README.md](report/README.md) (Phase3 결과는 report/03-결과와해석.md).** 아래는 원본 보존.
+> **[통합] 본 문서는 전체 여정 종합본 `report/`로 대체됨 → [report/README.md](../../report/README.md) (Phase3 결과는 report/03-결과와해석.md).** 아래는 원본 보존.
 
 > **조건**: thinking-on(enable_thinking, inject_proxy) · max_tokens=32768(인위 절단 없음) · temp0.6/top_p0.95 · 초대형 벤치 N=500, GPQA-Diamond full 198 · 단일 H100 80GB.
 > **프레임워크**: lm-eval(GPQA flexible) · inspect_ai(GPQA·MMLU-Pro·IFEval) · HRET(haerae·KMMLU 한국어, 마지막 (X) 추출).

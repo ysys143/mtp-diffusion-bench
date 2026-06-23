@@ -1,6 +1,6 @@
 # 보고서 — Phase 1·2 (재구조화 + 컨텍스트 길이 안정화)
 
-> **[통합] 본 문서는 전체 여정 종합본 `report/`로 대체됨 → [report/README.md](report/README.md) (Phase1·2는 report/01·03).** 아래는 원본 보존.
+> **[통합] 본 문서는 전체 여정 종합본 `report/`로 대체됨 → [report/README.md](../../report/README.md) (Phase1·2는 report/01·03).** 아래는 원본 보존.
 
 **대상:** Gemma 4 (12B·26B-A4B·31B) / Qwen3.6 (27B·35B-A3B) · **환경:** 단일 H100 80GB (GCP), vLLM
 **범위:** Phase 1(레포 재구조화) + Phase 2(컨텍스트 한계 규명·검증). Phase 3(다면 평가)은 방법론 재검토 중(§상태).

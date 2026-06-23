@@ -1,6 +1,6 @@
 # 평가 매트릭스 — 3 프레임워크 × 전 모델 (GOAL 고정)
 
-> **[통합] 본 계획/매트릭스는 종합본 `report/`로 대체됨 → [report/README.md](report/README.md) (커버리지는 README, 배선은 01-프로토콜).** 아래는 원본 보존.
+> **[통합] 본 계획/매트릭스는 종합본 `report/`로 대체됨 → [report/README.md](../../report/README.md) (커버리지는 README, 배선은 01-프로토콜).** 아래는 원본 보존.
 
 > **GOAL**: 요청한 **모든 모델**에 (lm-eval / inspect_ai / HRET) **세 프레임워크를 전부 올바르게** 적용.
 > **올바른 적용 = 동등성 조건 전부**: ① thinking ON (enable_thinking=true) ② 인위적 답변길이 제약 금지
