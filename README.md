@@ -1,4 +1,6 @@
-# LLM 추론 평가 (Gemma 4 / Qwen 3.6, H100)
+# mtp-diffusion-bench — MTP·Diffusion 추론 가속 평가 (Gemma 4 / Qwen 3.6, H100)
+
+> **핵심 질문:** 추론 가속 기법 **MTP(speculative decoding)·Diffusion**이 속도를 얼마나 올리고 정확도를 얼마나 바꾸나? 이를 양자화·컨텍스트·thinking을 통제축으로 두고 **속도×정확도×메모리 프론티어**에서 판정한다.
 
 > **완료.** 상세 정본 = [report/](report/README.md) (01프로토콜·02시행착오·03결과·04재현·05-2부리그). 본 README가 결과 요약·진입점이다. Phase 시절 단편(REPORT/MATRIX/RESULTS_PHASE3/PLAN)은 [legacy/phase-docs/](legacy/phase-docs/)로 아카이브.
 
