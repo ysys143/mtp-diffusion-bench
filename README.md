@@ -65,9 +65,9 @@
 
 > 히트맵 척도 주의: min–max·로그 모두 이상치에 끌린다(off-domain 0.31 한 값이 그 열을 흐린다). 1부는 이상치가 없어 그대로 썼지만, 2부처럼 off-domain이 섞이면 분위수(robust) 스케일이 더 안전하다.
 
-## 1부.5 — 네이티브 4-bit 양자화 (int4 / AWQ / NVFP4)
+## 사전 양자화 4-bit (int4 · AWQ · NVFP4)
 
-> HF에 publish된 pre-quantized 슬림 체크포인트로 측정(online 동적 양자화 아님). 공식 Qwen3.6 GPTQ/AWQ는 부재(404)라 **커뮤니티 int4/AWQ + 공식 NVIDIA NVFP4**로 구성. 배터리는 1부 동일(thinking-on). 상세·서빙 R&D: [report/07](report/07-네이티브-양자화.md).
+> HF에 publish된 pre-quantized 슬림 체크포인트로 측정(online 동적 양자화 아님). 공식 Qwen3.6 GPTQ/AWQ는 부재(404)라 **커뮤니티 int4/AWQ + 공식 NVIDIA NVFP4**로 구성. 배터리는 1부 동일(thinking-on). 상세·서빙 R&D: [report/07](report/07-사전양자화.md).
 
 | 모델 | 양자화(출처) | 속도 s/8K | lm-GPQA | MMLU-Pro | KMMLU | 동일모델 fp8 대비 |
 |---|---|---:|---:|---:|---:|---|
@@ -107,7 +107,7 @@
 ## 구조
 | 경로 | 내용 |
 |---|---|
-| **[report/](report/README.md)** | **★ 상세 정본** — 01프로토콜·02시행착오·03결과·04재현·05-2부리그·06-MTP/diffusion세팅·07-네이티브양자화 |
+| **[report/](report/README.md)** | **★ 상세 정본** — 01프로토콜·02시행착오·03결과·04재현·05-2부리그·06-MTP/diffusion세팅·07-사전양자화 |
 | [results_consolidated.csv](results_consolidated.csv) | 마스터 데이터 250행 (전 표의 근거) |
 | `context/` | Phase 2 — (모델×정밀도)별 최대 안정 컨텍스트([FINDINGS](context/FINDINGS.md)) |
 | `evals/` | 평가 배터리 러너 (lm-eval / inspect_ai / HRET) |
