@@ -65,6 +65,25 @@
 
 > 히트맵 척도 주의: min–max·로그 모두 이상치에 끌린다(off-domain 0.31 한 값이 그 열을 흐린다). 1부는 이상치가 없어 그대로 썼지만, 2부처럼 off-domain이 섞이면 분위수(robust) 스케일이 더 안전하다.
 
+## 1부.5 — 네이티브 4-bit 양자화 (int4 / AWQ / NVFP4)
+
+> HF에 publish된 pre-quantized 슬림 체크포인트로 측정(online 동적 양자화 아님). 공식 Qwen3.6 GPTQ/AWQ는 부재(404)라 **커뮤니티 int4/AWQ + 공식 NVIDIA NVFP4**로 구성. 배터리는 1부 동일(thinking-on). 상세·서빙 R&D: [report/07](report/07-네이티브-양자화.md).
+
+| 모델 | 양자화(출처) | 속도 s/8K | lm-GPQA | MMLU-Pro | KMMLU | 동일모델 fp8 대비 |
+|---|---|---:|---:|---:|---:|---|
+| Qwen35-A3B MoE | int4 GPTQ (커뮤니티) | 209/195 | 0.793 | 0.858 | 0.578 | 무손실 · spd −4% |
+| Qwen35-A3B MoE | int4 AWQ (커뮤니티) | 208/194 | 0.793 | 0.852 | 0.592 | 무손실 (GPTQ와 GPQA 일치) |
+| Gemma31B dense | **NVFP4** (공식) | 65/50 | 0.843 | 0.862 | 0.670 | 무손실 · spd ≈fp8³ |
+| Qwen27 dense-hybrid | int4 AWQ (커뮤니티) | 86/78 | 0.803 | 0.878 | 0.604 | 무손실 · **spd +9%** |
+| Qwen35-A3B + **MTP** | int4 GPTQ | **311/311** | 0.783 | — | — | AR 209 대비 **+49%/+59%**, GPQA 무손실 |
+| Qwen27 + **MTP** | int4 AWQ | **163/140** | 0.813 | — | — | AR 86 대비 **+89%/+80%**, GPQA 무손실 |
+
+**4-bit 보는 법**
+- **무손실**: lm-GPQA·MMLU-Pro·KMMLU가 동일모델 fp8과 노이즈(±0.01–0.03) 이내. GPTQ·AWQ 두 양자화기가 같은 모델에서 GPQA 0.793로 일치 → 무손실은 양자화기 무관(KMMLU만 NVFP4·Qwen27에서 −0.03 안팎).
+- **출처**: NVFP4만 공식(nvidia), int4/AWQ는 커뮤니티 체크포인트 — "무손실"은 그 체크포인트 기준.
+- **³ 속도 규칙**: H100에서 4-bit가 fp8을 이기는 건 **정수 W4A16(qat/AWQ) on dense**뿐(Qwen27 +9%, 31B-qat 90 vs fp8 68). **NVFP4는 native FP4 텐서코어가 Blackwell 전용**이라 H100선 Marlin 에뮬→fp8과 비등(8K는 더 느림). MoE int4는 활성 파라미터가 적어 ≈fp8(−4%). **4-bit의 실이득은 속도가 아니라 VRAM**(Qwen35 weight 23G vs fp8 35G).
+- **MTP × 4-bit**: spec-decode를 얹으면 4-bit가 **속도까지 fp8 AR을 추월**(MoE int4 AR 209→MTP 311 > fp8 AR 217), GPQA 무손실.
+
 ## 2부 — 신규 6모델 경량 평가
 
 <details>
@@ -88,8 +107,8 @@
 ## 구조
 | 경로 | 내용 |
 |---|---|
-| **[report/](report/README.md)** | **★ 상세 정본** — 01프로토콜·02시행착오·03결과·04재현·05-2부리그·06-MTP/diffusion세팅 |
-| [results_consolidated.csv](results_consolidated.csv) | 마스터 데이터 224행 (전 표의 근거) |
+| **[report/](report/README.md)** | **★ 상세 정본** — 01프로토콜·02시행착오·03결과·04재현·05-2부리그·06-MTP/diffusion세팅·07-네이티브양자화 |
+| [results_consolidated.csv](results_consolidated.csv) | 마스터 데이터 250행 (전 표의 근거) |
 | `context/` | Phase 2 — (모델×정밀도)별 최대 안정 컨텍스트([FINDINGS](context/FINDINGS.md)) |
 | `evals/` | 평가 배터리 러너 (lm-eval / inspect_ai / HRET) |
 | `legacy/h100-round1/` | 1차 H100 라운드(매트릭스 + 트러블슈팅) — 아카이브 |

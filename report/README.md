@@ -21,6 +21,7 @@
 | [04-재현과데이터.md](04-재현과데이터.md) | 환경 · 스크립트 인벤토리 · 재개 패턴 · CSV 스키마/요약 |
 | [05-2부리그.md](05-2부리그.md) | **2부 리그** — 신규 6모델(EXAONE/Nex-N2/GLM-Flash/Nemotron/distill/VibeThinker) 경량 평가 + 서빙 안정화 R&D |
 | [06-MTP-diffusion-세팅.md](06-MTP-diffusion-세팅.md) | **MTP/diffusion 세팅 가이드** — 복붙 serve 명령(셀별 speculative-config) + 난점·해결 트러블슈팅 |
+| [07-네이티브-양자화.md](07-네이티브-양자화.md) | **네이티브 4-bit(int4 GPTQ/AWQ·NVFP4)** — fp8 아래 무손실 경계 + dense 속도 + MTP×4bit + 서빙 R&D |
 
 ## 커버리지 매트릭스 (무엇을·왜 측정/미측정)
 
@@ -34,6 +35,8 @@
 | Qwen 35B-A3B MoE | ◐ | ● | ◐ | — | **bf16/int8은 인프라한계(eager 15tok/s)로 GPQA만**(사용자 승인 스코프) |
 | Qwen 27B dense-hybrid | ● | ● | ● | — | qat 없음 |
 | diffusiongemma 26B-A4B | ● | ● | ● | — | 전용 :gemma 이미지 |
+
+**네이티브 4-bit(int4 GPTQ/AWQ · NVFP4)** — 별도 측정([07](07-네이티브-양자화.md)): Qwen35-A3B(GPTQ·AWQ 교차검증)·Gemma31B(NVFP4, 공식)·Qwen27(AWQ)에 **lm-GPQA·MMLU-Pro·KMMLU**(▣ 3/6 지표) 측정 + MTP×4bit 2셀. 전부 fp8 무손실; 출처는 NVFP4만 공식·나머지 커뮤니티.
 
 **기법 축:**
 - **MTP**: 9셀(12B/26B/31B/qwen35/qwen27 정밀도별) speedup + **GPQA full 198 정확도 직접 실측** + 토큰동일성 검증(대조군 포함).
